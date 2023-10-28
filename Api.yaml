@@ -528,7 +528,9 @@ paths:
   /m/podcasts:
     get:
       summary: ''
-      tags: []
+      tags:
+        - mobile
+        - central
       responses:
         '200':
           description: OK
