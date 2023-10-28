@@ -538,6 +538,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PodcastsResponse'
+      operationId: mobile-get-podcasts
+      description: 'Mobile: Get podcasts'
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+        - schema:
+            type: number
+          in: query
+          name: page
+        - schema:
+            type: number
+          in: query
+          name: limit
+  /c/podcasts:
+    get:
+      summary: ''
+      tags:
+        - mobile
+        - central
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PodcastsResponse'
       operationId: client-get-podcasts
       description: 'Client: Get podcasts'
       security:
@@ -555,6 +585,7 @@ paths:
             type: number
           in: query
           name: limit
+    parameters: []
 components:
   schemas:
     MessageResponse:
