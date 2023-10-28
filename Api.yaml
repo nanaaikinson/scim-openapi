@@ -530,7 +530,6 @@ paths:
       summary: ''
       tags:
         - mobile
-        - central
       responses:
         '200':
           description: OK
@@ -559,7 +558,6 @@ paths:
     get:
       summary: ''
       tags:
-        - mobile
         - central
       responses:
         '200':
