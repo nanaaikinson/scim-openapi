@@ -525,6 +525,34 @@ paths:
               $ref: '#/components/schemas/PrayerRequest'
       tags:
         - mobile
+  /m/podcasts:
+    get:
+      summary: ''
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PodcastsResponse'
+      operationId: client-get-podcasts
+      description: 'Client: Get podcasts'
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+        - schema:
+            type: number
+          in: query
+          name: page
+        - schema:
+            type: number
+          in: query
+          name: limit
 components:
   schemas:
     MessageResponse:
@@ -1248,6 +1276,176 @@ components:
           type: string
       required:
         - email
+    Podcast:
+      type: object
+      x-examples:
+        Example 1:
+          id: 01HDVMT7TDHHRNDZEAH3TC8P4S
+          title: SEVEN WAYS TO SOW SEEDS OF RIGHTEOUSNESS
+          description: Message by Evang. Elijah-Ben Kusi Agyapong during morning devotion (B4DBP)
+          link: 'https://awscdn.podcasts.com/audio-OYy9tjR4zWOa17YqZu2hFuEbv.mp3'
+          publishedDate: '2023-10-26 06:58:49'
+          author: Evangelist Elijah Ben
+          image: null
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+        publishedDate:
+          type: string
+        author:
+          type: string
+        image:
+          type: string
+          nullable: true
+      required:
+        - id
+        - title
+        - description
+        - link
+        - publishedDate
+        - author
+        - image
+    PodcastsResponse:
+      type: object
+      x-examples:
+        Example 1:
+          data:
+            - id: 01HDVMT7TDHHRNDZEAH3TC8P4S
+              title: SEVEN WAYS TO SOW SEEDS OF RIGHTEOUSNESS
+              description: Message by Evang. Elijah-Ben Kusi Agyapong during morning devotion (B4DBP)
+              link: 'https://awscdn.podcasts.com/audio-OYy9tjR4zWOa17YqZu2hFuEbv.mp3'
+              publishedDate: '2023-10-26 06:58:49'
+              author: Evangelist Elijah Ben
+              image: null
+            - id: 01HDVMT7VTX03K1G9QPSQKSVAJ
+              title: SEVEN WAYS TO SEEK THE LORD-PART 1
+              description: Message by Evg. Elijah-Ben Kusi Agyapong during Before Day Break Prayers (B4DBP)
+              link: 'https://awscdn.podcasts.com/audio-lPNxXStjTopQf7wjvyrecdlkN.mp3'
+              publishedDate: '2023-10-25 07:16:05'
+              author: Evangelist Elijah Ben
+              image: null
+            - id: 01HDVMT7VWS7BCSXPZHHFYAAWD
+              title: HOW SOME BECOME SPIRITUAL DROPOUT
+              description: Message by Evg. Elijah Ben K. Agyapong During SCIM Ghana LEADERSHIP CLASS || 22.10.2023&nbsp;
+              link: 'https://awscdn.podcasts.com/audio-CLZp6s5uNjjWy4LoiIhEC1oOR.mp3'
+              publishedDate: '2023-10-22 20:16:26'
+              author: Evangelist Elijah Ben
+              image: null
+            - id: 01HDVMT7VXKSA8FYK4K0DZWAPB
+              title: OFFENCE; THE WEAPON OF SATAN
+              description: Message by Evg. Elijah Ben K. Agyapong During SCIM RHEMA Service || 22.10.2023&nbsp;
+              link: 'https://awscdn.podcasts.com/audio-sPmUMCOJtvSLMFYUkv7zeqXqC.mp3'
+              publishedDate: '2023-10-22 20:14:49'
+              author: Evangelist Elijah Ben
+              image: null
+            - id: 01HDVMT7VZH45BAEG5FK75YQW7
+              title: WHERE THE ANOINTING IS HONORED
+              description: Message by Evg. Elijah Ben K. Agyapong During SCIM Ghana Anointing Service || 22.10.2023&nbsp;
+              link: 'https://awscdn.podcasts.com/audio-SKtEpKG16NX9wyuYGnN8Q5LFo.mp3'
+              publishedDate: '2023-10-22 20:12:10'
+              author: Evangelist Elijah Ben
+              image: null
+            - id: 01HDVMT7W000FSN0805YNZDXTW
+              title: TEACH US HOW TO NUMBER OUR DAYS
+              description: 'Message by Evang. Elijah-Ben Kusi Agyapong during Before Day Break Prayers (B4DBP}'
+              link: 'https://awscdn.podcasts.com/audio-qxR22b1CQ6apAmjQEEegkvCEI.mp3'
+              publishedDate: '2023-10-20 08:45:47'
+              author: Evangelist Elijah Ben
+              image: null
+            - id: 01HDVMT7W2N153P71H21BMG484
+              title: KNOWING THE TIMES AND SEASONS
+              description: Message by Evang. Elijah-Ben Kusi Agyapong during Before Day Break Prayers (B4DBP)
+              link: 'https://awscdn.podcasts.com/audio-81uFXV9G1ZJAsmZjfdAh8GHjy.mp3'
+              publishedDate: '2023-10-19 06:57:19'
+              author: Evangelist Elijah Ben
+              image: null
+            - id: 01HDVMT7W3YG7TN3M3MP1TM49V
+              title: THE TRUE DOCTRINE WITH HONOR
+              description: Message by Evg Elijah Ben K. Agyapong During Sunday Anointing Service - SCIM Ghana Branch || 15.10.2023
+              link: 'https://awscdn.podcasts.com/audio-W14c8qA3WwHUIriNeXik5nFdv.mp3'
+              publishedDate: '2023-10-17 18:48:06'
+              author: Evangelist Elijah Ben
+              image: null
+            - id: 01HDVMT7W5T0HED3RKFMRPA147
+              title: ANTIPIPTO (STUBBORNESS)
+              description: Message by Evang. Elijah-Ben Kusi Agyapong during Before Day Break Prayers (B4DBP)
+              link: 'https://awscdn.podcasts.com/audio-fFhp9WCNhHVnuJIf6ACABheAu.mp3'
+              publishedDate: '2023-10-16 07:12:08'
+              author: Evangelist Elijah Ben
+              image: null
+            - id: 01HDVMT7W625H39QRA14Q1C8K9
+              title: HOW TO HONOUR BY THINKING PROPERLY
+              description: Message by Rev. Elijah-Ben Kusi Agyapong durin RHEMA SERVICE
+              link: 'https://awscdn.podcasts.com/audio-2RpRR1E86aWr2STcot9Vf6298.mp3'
+              publishedDate: '2023-10-16 06:46:08'
+              author: Evangelist Elijah Ben
+              image: null
+          meta:
+            show: Showing 1 to 10 of 291 items
+            total: 291
+            count: 10
+            perPage: 10
+            currentPage: 1
+            totalPages: 30
+            links:
+              first: 'http://scim.test/api/m/podcasts?page=1'
+              last: 'http://scim.test/api/m/podcasts?page=30'
+              prev: null
+              next: 'http://scim.test/api/m/podcasts?page=2'
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Podcast'
+        meta:
+          type: object
+          required:
+            - show
+            - total
+            - count
+            - perPage
+            - currentPage
+            - totalPages
+            - links
+          properties:
+            show:
+              type: string
+            total:
+              type: integer
+            count:
+              type: integer
+            perPage:
+              type: integer
+            currentPage:
+              type: integer
+            totalPages:
+              type: integer
+            links:
+              type: object
+              required:
+                - first
+                - last
+                - prev
+                - next
+              properties:
+                first:
+                  type: string
+                last:
+                  type: string
+                prev:
+                  type: string
+                  nullable: true
+                next:
+                  type: string
+                  nullable: true
+      required:
+        - meta
   securitySchemes:
     JWT:
       type: http
