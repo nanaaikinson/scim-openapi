@@ -632,6 +632,7 @@ components:
               required:
                 - access
                 - expiresAt
+                - refresh
               properties:
                 access:
                   type: string
