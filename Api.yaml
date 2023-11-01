@@ -327,12 +327,12 @@ paths:
         - JWT: []
       parameters:
         - schema:
-            type: string
+            type: number
           in: query
           name: page
           description: Current page
         - schema:
-            type: string
+            type: number
           in: query
           name: limit
           description: Number of items
@@ -392,12 +392,12 @@ paths:
         - JWT: []
       parameters:
         - schema:
-            type: string
+            type: number
           in: query
           name: page
           description: Current page
         - schema:
-            type: string
+            type: number
           in: query
           name: limit
           description: Number of items
@@ -450,7 +450,19 @@ paths:
       description: 'Admin: Get event'
       security:
         - JWT: []
-      parameters: []
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: page
+        - schema:
+            type: number
+          in: query
+          name: limit
+        - schema:
+            type: string
+          in: query
+          name: search
     patch:
       tags:
         - admin
@@ -504,6 +516,19 @@ paths:
       security:
         - JWT: []
       description: 'Mobile: Get prayer-requests'
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: page
+        - schema:
+            type: number
+          in: query
+          name: limit
+        - schema:
+            type: string
+          in: query
+          name: search
     post:
       summary: ''
       operationId: client-request-prayer
