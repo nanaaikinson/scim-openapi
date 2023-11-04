@@ -500,6 +500,36 @@ paths:
       security:
         - JWT: []
       parameters: []
+  /c/podcasts:
+    get:
+      summary: ''
+      tags:
+        - central
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PodcastsResponse'
+      operationId: client-get-podcasts
+      description: 'Client: Get podcasts'
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+        - schema:
+            type: number
+          in: query
+          name: page
+        - schema:
+            type: number
+          in: query
+          name: limit
+    parameters: []
   /m/prayers:
     get:
       summary: ''
@@ -579,20 +609,66 @@ paths:
             type: number
           in: query
           name: limit
-  /c/podcasts:
+  '/m/podcasts/{id}':
     get:
       summary: ''
-      tags:
-        - central
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PodcastsResponse'
-      operationId: client-get-podcasts
-      description: 'Client: Get podcasts'
+                $ref: '#/components/schemas/PodcastResponse'
+      operationId: mobile-get-podcast
+      description: 'Mobile: Get podcast'
+      security:
+        - JWT: []
+      parameters: []
+      tags:
+        - mobile
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+  '/m/podcasts/{id}/like':
+    patch:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+      operationId: mobile-like-podcast
+      description: 'Mobile: Like/Unlike podcast'
+      security:
+        - JWT: []
+      parameters: []
+      tags:
+        - mobile
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+  /m/playlists:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - mobile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaylistsReponse'
+      operationId: mobile-get-playlists
+      description: 'Mobile: Get playlists'
       security:
         - JWT: []
       parameters:
@@ -608,7 +684,90 @@ paths:
             type: number
           in: query
           name: limit
-    parameters: []
+        - schema:
+            type: boolean
+          in: query
+          name: withPodcasts
+    post:
+      summary: ''
+      operationId: mobile-create-playlist
+      responses:
+        '200':
+          description: OK
+      description: 'Mobile: Create playlist'
+      security:
+        - JWT: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorePlaylist'
+      tags:
+        - mobile
+  '/m/playlists/{id}':
+    patch:
+      summary: ''
+      operationId: mobile-update-playlist
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaylistResponse'
+      description: 'Mobile: Update playlist'
+      security:
+        - JWT: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorePlaylist'
+      tags:
+        - mobile
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: ''
+      operationId: mobile-get-playlist
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaylistResponse'
+      description: 'Mobile: Get playlist'
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: withPodcasts
+      tags:
+        - mobile
+    delete:
+      summary: ''
+      operationId: mobile-delete-playlist
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+      description: 'Mobile: Delete playlist'
+      security:
+        - JWT: []
+      tags:
+        - mobile
 components:
   schemas:
     MessageResponse:
@@ -1504,6 +1663,153 @@ components:
                   nullable: true
       required:
         - meta
+      title: ''
+    Playlist:
+      type: object
+      x-examples:
+        Example 1:
+          id: 01HEB0A9F9ZF4XH4VN4Q54SJ7A
+          title: Test
+          description: null
+          createdAt: '2023-11-04T10:14:43.000000Z'
+          podcastsCount: 0
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+        podcastsCount:
+          type: integer
+        podcasts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Podcast'
+      required:
+        - id
+        - title
+        - description
+        - createdAt
+        - podcastsCount
+    PlaylistsReponse:
+      type: object
+      x-examples:
+        Example 1:
+          data:
+            - id: 01HEB0A9F9ZF4XH4VN4Q54SJ7A
+              title: Test
+              description: null
+              createdAt: '2023-11-04T10:14:43.000000Z'
+              podcastsCount: 0
+          meta:
+            show: Showing 1 to 1 of 1 items
+            total: 1
+            count: 1
+            perPage: 10
+            currentPage: 1
+            totalPages: 1
+            links:
+              first: 'http://scim.test/api/m/playlists?page=1'
+              last: 'http://scim.test/api/m/playlists?page=1'
+              prev: null
+              next: null
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Playlist'
+        meta:
+          type: object
+          required:
+            - show
+            - total
+            - count
+            - perPage
+            - currentPage
+            - totalPages
+            - links
+          properties:
+            show:
+              type: string
+            total:
+              type: integer
+            count:
+              type: integer
+            perPage:
+              type: integer
+            currentPage:
+              type: integer
+            totalPages:
+              type: integer
+            links:
+              type: object
+              required:
+                - first
+                - last
+                - prev
+                - next
+              properties:
+                first:
+                  type: string
+                last:
+                  type: string
+                prev:
+                  type: string
+                  nullable: true
+                next:
+                  type: string
+                  nullable: true
+      required:
+        - data
+        - meta
+    StorePlaylist:
+      title: StorePlaylist
+      x-stoplight:
+        id: bdgghmp9tynd5
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        podcasts:
+          type: array
+          items:
+            type: string
+      required:
+        - title
+        - description
+    PlaylistResponse:
+      title: PlaylistResponse
+      x-stoplight:
+        id: frogsruht2onz
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Playlist'
+        message:
+          type: string
+          nullable: true
+      required:
+        - message
+    PodcastResponse:
+      title: PodcastResponse
+      x-stoplight:
+        id: 4gsy2v4v6jim4
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Podcast'
+        message:
+          type: string
+          nullable: true
+      required:
+        - data
+        - message
   securitySchemes:
     JWT:
       type: http
