@@ -609,6 +609,13 @@ paths:
             type: number
           in: query
           name: limit
+        - schema:
+            type: string
+            enum:
+              - newest
+              - oldest
+          in: query
+          name: order
   '/m/podcasts/{id}':
     get:
       summary: ''
@@ -771,7 +778,8 @@ paths:
   /m/dashboard:
     get:
       summary: ''
-      tags: []
+      tags:
+        - mobile
       responses:
         '200':
           description: OK
