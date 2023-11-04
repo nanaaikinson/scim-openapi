@@ -657,7 +657,7 @@ paths:
         required: true
   /m/playlists:
     get:
-      summary: Your GET endpoint
+      summary: ''
       tags:
         - mobile
       responses:
@@ -768,6 +768,21 @@ paths:
         - JWT: []
       tags:
         - mobile
+  /m/dashboard:
+    get:
+      summary: ''
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileDashboardResponse'
+      operationId: mobile-get-dashboard-data
+      description: 'Mobile: Get dashboard data'
+      security:
+        - JWT: []
 components:
   schemas:
     MessageResponse:
@@ -1807,6 +1822,69 @@ components:
         message:
           type: string
           nullable: true
+      required:
+        - data
+        - message
+    MobileDashboardResponse:
+      type: object
+      x-examples:
+        Example 1:
+          data:
+            upcomingEvents: []
+            recentPodcasts:
+              - id: 01HEB0HHBA59QD1C4JE5QQ6Y55
+                title: NOT THINKING FOOLiSHLY BUT UNDERSTANDING THE WILL OF GOD
+                description: Message By Evg. Elijah Ben K. Agyapong during SCIM TUESDAY TEACHING SERVICE || 31.10.2023
+                link: 'https://awscdn.podcasts.com/audio-PzGNvAsMqBbLDYHnwLITXP2Y0.mp3'
+                publishedDate: '2023-10-31 20:49:01'
+                author: Evangelist Elijah Ben
+                image: null
+              - id: 01HEB0HHBDRKCJVQFNHCP623Q8
+                title: DEALING WITH SLANDERERS
+                description: Message by Evg. Elijah Ben K. Agyapong during B4DBP || 30.10.2023
+                link: 'https://awscdn.podcasts.com/audio-q8DRswSpdz0wid9hZe3w3KQeX.mp3'
+                publishedDate: '2023-10-31 16:24:16'
+                author: Evangelist Elijah Ben
+                image: null
+              - id: 01HEB0HHBEJJY1BZWB4TZD45DQ
+                title: HTP SERVICE - GHANA
+                description: Message by Evg. Elijah B. K. Agyapong during HTP service - Ghana || 29.10.2023
+                link: 'https://awscdn.podcasts.com/audio-hjDPwod5wAWIpIlSSPzjGqAEU.mp3'
+                publishedDate: '2023-10-30 17:47:13'
+                author: Evangelist Elijah Ben
+                image: null
+              - id: 01HEB0HHBFQ0V74BJC3500FDBK
+                title: SEVEN WAYS TO SOW SEEDS OF RIGHTEOUSNESS
+                description: Message by Evang. Elijah-Ben Kusi Agyapong during morning devotion (B4DBP)
+                link: 'https://awscdn.podcasts.com/audio-OYy9tjR4zWOa17YqZu2hFuEbv.mp3'
+                publishedDate: '2023-10-26 06:58:49'
+                author: Evangelist Elijah Ben
+                image: null
+              - id: 01HEB0HHBGJQ7ZY6G7NHVWCYVA
+                title: SEVEN WAYS TO SEEK THE LORD-PART 1
+                description: Message by Evg. Elijah-Ben Kusi Agyapong during Before Day Break Prayers (B4DBP)
+                link: 'https://awscdn.podcasts.com/audio-lPNxXStjTopQf7wjvyrecdlkN.mp3'
+                publishedDate: '2023-10-25 07:16:05'
+                author: Evangelist Elijah Ben
+                image: null
+          message: Successfully retrieved dashboard data.
+      properties:
+        data:
+          type: object
+          required:
+            - upcomingEvents
+            - recentPodcasts
+          properties:
+            upcomingEvents:
+              type: array
+              items:
+                $ref: '#/components/schemas/Event'
+            recentPodcasts:
+              type: array
+              items:
+                $ref: '#/components/schemas/Podcast'
+        message:
+          type: string
       required:
         - data
         - message
