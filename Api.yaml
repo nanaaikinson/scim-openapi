@@ -807,6 +807,19 @@ paths:
       description: 'Mobile: Get events'
       security:
         - JWT: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+        - schema:
+            type: number
+          in: query
+          name: limit
+        - schema:
+            type: number
+          in: query
+          name: page
     parameters: []
   '/m/events/{id}':
     get:
