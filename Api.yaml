@@ -9,7 +9,7 @@ info:
     name: Nana Kwesi Ofosu-Aikins
     email: nanaaikinson24@gmail.com
 servers:
-  - url: 'https://chms-scim.test/api'
+  - url: 'http://scim.test/api'
     description: Local
   - description: Testing
     url: 'https://scim.aikintech.com/api'
