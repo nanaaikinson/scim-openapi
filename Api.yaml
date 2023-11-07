@@ -791,6 +791,45 @@ paths:
       description: 'Mobile: Get dashboard data'
       security:
         - JWT: []
+  /m/events:
+    get:
+      summary: ''
+      tags:
+        - mobile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+      operationId: mobile-get-events
+      description: 'Mobile: Get events'
+      security:
+        - JWT: []
+    parameters: []
+  '/m/events/{id}':
+    get:
+      summary: ''
+      tags:
+        - mobile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+      operationId: mobile-get-event
+      description: 'Mobile: Get event'
+      security:
+        - JWT: []
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
 components:
   schemas:
     MessageResponse:
