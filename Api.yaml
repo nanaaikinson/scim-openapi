@@ -320,7 +320,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PrayersResponse'
+                $ref: '#/components/schemas/BackofficePrayersResponse'
       operationId: backoffice-get-prayers
       description: 'backoffice: Get prayers'
       security:
@@ -1081,6 +1081,60 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Prayer'
+        meta:
+          type: object
+          required:
+            - show
+            - total
+            - count
+            - perPage
+            - currentPage
+            - totalPages
+            - links
+          properties:
+            show:
+              type: string
+            total:
+              type: integer
+            count:
+              type: integer
+            perPage:
+              type: integer
+            currentPage:
+              type: integer
+            totalPages:
+              type: integer
+            links:
+              type: object
+              required:
+                - first
+                - last
+                - prev
+                - next
+              properties:
+                first:
+                  type: string
+                last:
+                  type: string
+                prev:
+                  type: string
+                  nullable: true
+                next:
+                  type: string
+                  nullable: true
+      required:
+        - data
+        - meta
+    BackofficePrayersResponse:
+      type: object
+      description: Prayers response
+      x-stoplight:
+        id: c7157fff428f9
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BackofficePrayer'
         meta:
           type: object
           required:
@@ -2306,6 +2360,71 @@ components:
       properties:
         id:
           type: string
+    BackofficePrayer:
+      type: object
+      x-examples:
+        Example 1:
+          id: 01HEB0AA5J3R9ADHC3NZ97R1N4
+          title: Corrupti facilis est nihil nihil voluptatum ducimus et quia.
+          description: Distinctio facere ipsam ut reprehenderit explicabo eaque. Suscipit veniam provident et molestiae tempora rerum exercitationem. Ab quia aut autem adipisci et sunt saepe.
+          status: pending
+          createdAt: '2023-11-03T16:30:02.000000Z'
+          completedAt: null
+          unreachableAt: null
+          requestBy:
+            id: 01HEB0AA5ECARZE98TYRYRANY7
+            firstName: Milan
+            lastName: Gulgowski
+            email: uspencer@example.org
+            emailVerified: true
+            username: null
+            phoneNumber: null
+            signUpProvider: local
+            status: active
+            channels:
+              - mobile
+            createdAt: '2023-11-03T16:30:02.000000Z'
+            avatar: null
+          completedBy: null
+          updatedBy: null
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - pending
+            - completed
+            - unreachable
+        createdAt:
+          type: string
+        completedAt:
+          type: string
+          nullable: true
+        unreachableAt:
+          type: string
+          nullable: true
+        requestBy:
+          $ref: '#/components/schemas/User'
+        completedBy:
+          $ref: '#/components/schemas/User'
+        updatedBy:
+          $ref: '#/components/schemas/User'
+      required:
+        - id
+        - title
+        - description
+        - status
+        - createdAt
+        - completedAt
+        - unreachableAt
+        - requestBy
+      x-stoplight:
+        id: 7f3c9e11da4d3
   securitySchemes:
     JWT:
       type: http
