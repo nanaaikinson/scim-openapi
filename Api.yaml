@@ -416,6 +416,8 @@ paths:
       description: 'backoffice: Create user'
       security:
         - JWT: []
+      tags:
+        - backoffice
   /a/events:
     get:
       summary: ''
