@@ -14,7 +14,7 @@ servers:
   - description: Testing
     url: 'https://scim.aikintech.com/api'
 tags:
-  - name: admin
+  - name: backoffice
   - name: central
   - name: mobile
 paths:
@@ -313,7 +313,7 @@ paths:
     get:
       summary: ''
       tags:
-        - admin
+        - backoffice
       responses:
         '200':
           description: OK
@@ -321,8 +321,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PrayersResponse'
-      operationId: get-prayers
-      description: 'Admin: Get prayers'
+      operationId: backoffice-get-prayers
+      description: 'backoffice: Get prayers'
       security:
         - JWT: []
       parameters:
@@ -346,7 +346,7 @@ paths:
     get:
       summary: ''
       tags:
-        - admin
+        - backoffice
       responses:
         '200':
           description: OK
@@ -363,8 +363,8 @@ paths:
                 required:
                   - data
                   - message
-      operationId: get-prayer
-      description: 'Admin: Get prayer'
+      operationId: backoffice-get-prayer
+      description: 'backoffice: Get prayer'
       security:
         - JWT: []
       parameters: []
@@ -374,11 +374,44 @@ paths:
         name: id
         in: path
         required: true
+  /a/iam/users:
+    get:
+      summary: ''
+      tags:
+        - backoffice
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayersResponse'
+      operationId: backoffice-get-users
+      description: 'backoffice: Get users'
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: page
+          description: Current page
+        - schema:
+            type: number
+          in: query
+          name: limit
+          description: Number of items
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: Search query
+    parameters: []
   /a/events:
     get:
       summary: ''
       tags:
-        - admin
+        - backoffice
       responses:
         '200':
           description: OK
@@ -386,8 +419,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventsResponse'
-      operationId: get-events
-      description: 'Admin: Get events'
+      operationId: backoffice-get-events
+      description: 'backoffice: Get events'
       security:
         - JWT: []
       parameters:
@@ -409,7 +442,7 @@ paths:
     parameters: []
     post:
       summary: ''
-      operationId: create-event
+      operationId: backoffice-create-event
       responses:
         '200':
           description: OK
@@ -417,7 +450,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventResponse'
-      description: 'Admin: Create event'
+      description: 'backoffice: Create event'
       security:
         - JWT: []
       requestBody:
@@ -427,7 +460,7 @@ paths:
             schema:
               $ref: '#/components/schemas/StoreEventRequest'
       tags:
-        - admin
+        - backoffice
   '/a/events/{id}':
     parameters:
       - schema:
@@ -438,7 +471,7 @@ paths:
     get:
       summary: ''
       tags:
-        - admin
+        - backoffice
       responses:
         '200':
           description: OK
@@ -446,8 +479,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventResponse'
-      operationId: get-event
-      description: 'Admin: Get event'
+      operationId: backoffice-get-event
+      description: 'backoffice: Get event'
       security:
         - JWT: []
       parameters:
@@ -465,9 +498,9 @@ paths:
           name: search
     patch:
       tags:
-        - admin
+        - backoffice
       summary: ''
-      operationId: update-event
+      operationId: backoffice-update-event
       responses:
         '200':
           description: OK
@@ -475,7 +508,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventResponse'
-      description: 'Admin: Update event'
+      description: 'backoffice: Update event'
       security:
         - JWT: []
       parameters: []
@@ -486,9 +519,9 @@ paths:
               $ref: '#/components/schemas/StoreEventRequest'
     delete:
       tags:
-        - admin
+        - backoffice
       summary: ''
-      operationId: delete-event
+      operationId: backoffice-delete-event
       responses:
         '200':
           description: OK
@@ -496,7 +529,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MessageResponse'
-      description: 'Admin: Delete event'
+      description: 'backoffice: Delete event'
       security:
         - JWT: []
       parameters: []
@@ -1948,6 +1981,312 @@ components:
       required:
         - data
         - message
+    BackofficeUsersResponse:
+      type: object
+      x-examples:
+        Example 1:
+          data:
+            - id: 01HEB0A9W7MAS8Y8RQHQ2125D9
+              firstName: Kyler
+              lastName: Corkery
+              email: weber.lela@example.org
+              emailVerified: true
+              username: null
+              signUpProvider: google
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA87ZG7MTMVECRB1EF80
+              firstName: Estrella
+              lastName: Armstrong
+              email: joaquin.bogisich@example.com
+              emailVerified: true
+              username: null
+              signUpProvider: google
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA7ZJ45S4VXSYG6AG3WY
+              firstName: Kendall
+              lastName: Cruickshank
+              email: badams@example.org
+              emailVerified: true
+              username: null
+              signUpProvider: google
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA7Q5Z6SFJE1AVBH7F0X
+              firstName: Felton
+              lastName: Jacobs
+              email: ottis03@example.net
+              emailVerified: true
+              username: null
+              signUpProvider: google
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA7FZCHG6S2RG6DNPY03
+              firstName: Maxine
+              lastName: Wilkinson
+              email: jason99@example.com
+              emailVerified: true
+              username: null
+              signUpProvider: local
+              status: suspended
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA7709R4NM0HQ5N0R236
+              firstName: Leonor
+              lastName: Ward
+              email: cummerata.raina@example.org
+              emailVerified: true
+              username: null
+              signUpProvider: apple
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA6Y9BDEB93PDDFC4K7V
+              firstName: Emmitt
+              lastName: Ortiz
+              email: saul84@example.com
+              emailVerified: true
+              username: null
+              signUpProvider: google
+              status: suspended
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA6PEYA8NS7T6WEVM4DV
+              firstName: Aubrey
+              lastName: Grant
+              email: funk.joesph@example.org
+              emailVerified: true
+              username: null
+              signUpProvider: google
+              status: suspended
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA6EQE9CYKQB334MSTDK
+              firstName: Brooks
+              lastName: Schowalter
+              email: satterfield.astrid@example.org
+              emailVerified: true
+              username: null
+              signUpProvider: google
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA66H7JEWH5M0N6BZMEA
+              firstName: Makenna
+              lastName: O'Keefe
+              email: cloyd96@example.net
+              emailVerified: true
+              username: null
+              signUpProvider: apple
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA5Y1K2C7VM7NYYDWCRY
+              firstName: Ali
+              lastName: Dietrich
+              email: stevie55@example.net
+              emailVerified: true
+              username: null
+              signUpProvider: google
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA5QDMEBTE4NJKGZ7GT2
+              firstName: Federico
+              lastName: Shanahan
+              email: blick.matteo@example.com
+              emailVerified: true
+              username: null
+              signUpProvider: google
+              status: suspended
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA5ECARZE98TYRYRANY7
+              firstName: Milan
+              lastName: Gulgowski
+              email: uspencer@example.org
+              emailVerified: true
+              username: null
+              signUpProvider: local
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA57HRBN9NXFAHYT8WQF
+              firstName: Sabina
+              lastName: Daniel
+              email: carter.jermey@example.com
+              emailVerified: true
+              username: null
+              signUpProvider: apple
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+            - id: 01HEB0AA4Z7DEC6XZRMYBVYRNK
+              firstName: Tanner
+              lastName: Jones
+              email: qabshire@example.com
+              emailVerified: true
+              username: null
+              signUpProvider: local
+              status: active
+              channels:
+                - mobile
+              createdAt: '2023-11-03T16:30:02.000000Z'
+              avatar: null
+          meta:
+            show: Showing 1 to 15 of 100 items
+            total: 100
+            count: 15
+            perPage: 15
+            currentPage: 1
+            totalPages: 7
+            links:
+              first: 'http://scim.test/api/a/users?page=1'
+              last: 'http://scim.test/api/a/users?page=7'
+              prev: null
+              next: 'http://scim.test/api/a/users?page=2'
+      x-stoplight:
+        id: 980c7773a37f7
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BackofficeUser'
+        meta:
+          type: object
+          required:
+            - show
+            - total
+            - count
+            - perPage
+            - currentPage
+            - totalPages
+            - links
+          properties:
+            show:
+              type: string
+            total:
+              type: integer
+            count:
+              type: integer
+            perPage:
+              type: integer
+            currentPage:
+              type: integer
+            totalPages:
+              type: integer
+            links:
+              type: object
+              required:
+                - first
+                - last
+                - prev
+                - next
+              properties:
+                first:
+                  type: string
+                last:
+                  type: string
+                prev:
+                  type: string
+                  nullable: true
+                next:
+                  type: string
+                  nullable: true
+      required:
+        - data
+        - meta
+    BackofficeUser:
+      type: object
+      x-examples:
+        Example 1:
+          id: 01HEB0A9W7MAS8Y8RQHQ2125D9
+          firstName: Kyler
+          lastName: Corkery
+          email: weber.lela@example.org
+          emailVerified: true
+          username: null
+          signUpProvider: google
+          status: active
+          channels:
+            - mobile
+          createdAt: '2023-11-03T16:30:02.000000Z'
+          avatar: null
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: boolean
+        username:
+          type: string
+          nullable: true
+        signUpProvider:
+          type: string
+        status:
+          type: string
+        channels:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+        avatar:
+          type: string
+          nullable: true
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified
+        - username
+        - signUpProvider
+        - status
+        - channels
+        - createdAt
+        - avatar
+      title: BackOfficeUser
+      x-stoplight:
+        id: bb48d8b3dfe93
   securitySchemes:
     JWT:
       type: http
