@@ -385,7 +385,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PrayersResponse'
+                $ref: '#/components/schemas/BackofficeUsersResponse'
       operationId: backoffice-get-users
       description: 'backoffice: Get users'
       security:
@@ -407,6 +407,15 @@ paths:
           name: search
           description: Search query
     parameters: []
+    post:
+      summary: ''
+      operationId: backoffice-create-user
+      responses:
+        '200':
+          description: OK
+      description: 'backoffice: Create user'
+      security:
+        - JWT: []
   /a/events:
     get:
       summary: ''
@@ -2287,6 +2296,14 @@ components:
       title: BackOfficeUser
       x-stoplight:
         id: bb48d8b3dfe93
+    BackofficeStoreUserRequest:
+      title: BackofficeStoreUserRequest
+      x-stoplight:
+        id: l169jcpk0uwvl
+      type: object
+      properties:
+        id:
+          type: string
   securitySchemes:
     JWT:
       type: http
