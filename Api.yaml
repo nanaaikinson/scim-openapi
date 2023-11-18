@@ -220,8 +220,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/VerifyAccountResponse'
       operationId: auth-verify-account
-      security:
-        - JWT: []
       description: 'Central: Auth verify account'
       requestBody:
         required: true
@@ -230,7 +228,7 @@ paths:
             schema:
               $ref: '#/components/schemas/VerifyAccountRequest'
   /c/auth/resend-verification:
-    get:
+    post:
       summary: ''
       tags:
         - central
@@ -242,9 +240,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MessageResponse'
       operationId: auth-resend-email-verification
-      security:
-        - JWT: []
       description: 'Central: Auth resend email verification'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendEmailVerificationRequest'
     parameters: []
   /c/auth/logout:
     post:
@@ -1023,6 +1025,10 @@ components:
         id: cqjn3a193c7cg
       type: object
       properties:
+        email:
+          type: string
+          x-stoplight:
+            id: 2icldmr2e7ltz
         verificationCode:
           type: string
         channel:
@@ -1031,6 +1037,7 @@ components:
             - mobile
             - web
       required:
+        - email
         - verificationCode
         - channel
     Prayer:
@@ -2425,6 +2432,18 @@ components:
         - requestBy
       x-stoplight:
         id: 7f3c9e11da4d3
+    ResendEmailVerificationRequest:
+      title: ResendEmailVerificationRequest
+      x-stoplight:
+        id: gwjaodsh8zpj3
+      type: object
+      properties:
+        email:
+          type: string
+          x-stoplight:
+            id: 47pflqein70su
+      required:
+        - email
   securitySchemes:
     JWT:
       type: http
