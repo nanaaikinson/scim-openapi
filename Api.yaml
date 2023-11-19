@@ -1595,6 +1595,14 @@ components:
           nullable: true
         emailVerified:
           type: boolean
+        channels:
+          type: array
+          x-stoplight:
+            id: 0p8enwiy3qxyc
+          items:
+            x-stoplight:
+              id: 392k5z0s6jdxk
+            type: string
       required:
         - id
         - firstName
@@ -1602,6 +1610,7 @@ components:
         - email
         - avatar
         - emailVerified
+        - channels
     VerifyAccountResponse:
       title: VerifyAccountResponse
       x-stoplight:
