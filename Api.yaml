@@ -1851,8 +1851,8 @@ components:
                   type: string
                   nullable: true
       required:
+        - data
         - meta
-      title: ''
     Playlist:
       type: object
       x-examples:
